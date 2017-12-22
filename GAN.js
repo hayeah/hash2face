@@ -10,6 +10,7 @@ global.Worker = require('webworker-threads').Worker
 
 global.window = global
 
+
 var WebDNN = require('./webdnn/src/descriptor_runner/lib/webdnn')
 
 class GAN {
@@ -36,13 +37,14 @@ class GAN {
     }
 
     getBackendOrder() {
-        let order = ['webgpu', 'webassembly'];
-        // let state = store.getState();
-        // if (!state.generatorConfig.webglDisabled) {
-        //     order.splice(1, 0, 'webgl')
-        // }
+        // let order = ['webgpu', 'webassembly'];
+        // // let state = store.getState();
+        // // if (!state.generatorConfig.webglDisabled) {
+        // //     order.splice(1, 0, 'webgl')
+        // // }
 
-        return order[1];
+        // return order[1];
+        return "fallback";
     }
 
     static getWebglTextureSize() {
