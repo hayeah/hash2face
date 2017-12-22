@@ -1,6 +1,16 @@
 var Config = require('./Config')
 var Utils = require('./Utils')
-var WebDNN = require('./modules/webdnn/webdnn')
+// var WebDNN = require('./modules/webdnn/webdnn')
+
+global.navigator = {
+    userAgent: "node 8",
+}
+
+global.Worker = require('webworker-threads').Worker
+
+global.window = global
+
+var WebDNN = require('./webdnn/src/descriptor_runner/lib/webdnn')
 
 class GAN {
 
@@ -47,10 +57,10 @@ class GAN {
 
     async init(onInitProgress) {
         var modelPath = Config.modelCompression ? this.modelConfig.gan.model + '_8bit' : this.modelConfig.gan.model;
-        this.runner = await WebDNN.load(modelPath, { 
-            progressCallback: onInitProgress, 
-            weightDirectory: await this.getWeightFilePrefix(), 
-            backendOrder: this.getBackendOrder() 
+        this.runner = await WebDNN.load(modelPath, {
+            progressCallback: onInitProgress,
+            weightDirectory: "./models", // await this.getWeightFilePrefix(),
+            backendOrder: this.getBackendOrder()
         });
     }
 

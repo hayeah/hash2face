@@ -23,7 +23,9 @@
   },
   "homepage": "https://github.com/LinXueyuanStdio/hash2face#readme",
   "dependencies": {
-    "canvas": "^2.0.0-alpha.8"
+    "canvas": "^2.0.0-alpha.8",
+    "pako": "^1.0.6",
+    "webworker-threads": "^0.7.13"
   },
   "devDependencies": {
     "express": "latest"
