@@ -24,7 +24,7 @@ class Generator {
         this.disableWebgl = false;
         this.gan = gan || GAN(Config.modelConfig[this.currentModel])
         this.modelConfig = modelConfig || this.getModelConfig()
-        
+
     }
 
     getModelConfig() {
@@ -32,37 +32,37 @@ class Generator {
     }
 
     setModel(modelName = this.currentModel, disableWebgl = this.disableWebgl) {
-        return new Promise((resolve, reject) => {
-            var keyName = modelName + (disableWebgl ? '_nowebgl' : '');
+        // return new Promise((resolve, reject) => {
+        //     var keyName = modelName + (disableWebgl ? '_nowebgl' : '');
 
-            if (!this.ganDict[keyName]) {
-                var gan = GAN(Config.modelConfig[modelName]);
-                var state = {
-                    loadingProgress: 0,
-                    isReady: false,
-                    isRunning: false,
-                    isCanceled: false,
-                    isError: false
-                };
-                this.ganDict[keyName] = {
-                    gan: gan,
-                    state: state
-                };
-            }
-            else {
-                resolve();
-            }
-            this.gan = this.ganDict[keyName].gan;
-        });
+        //     if (!this.ganDict[keyName]) {
+        //         var gan = GAN(Config.modelConfig[modelName]);
+        //         var state = {
+        //             loadingProgress: 0,
+        //             isReady: false,
+        //             isRunning: false,
+        //             isCanceled: false,
+        //             isError: false
+        //         };
+        //         this.ganDict[keyName] = {
+        //             gan: gan,
+        //             state: state
+        //         };
+        //     }
+        //     else {
+        //         resolve();
+        //     }
+        //     this.gan = this.ganDict[keyName].gan;
+        // });
     }
 
     async init() {
-        try {
-            await this.setModel();
-        }
-        catch (err) {
-            console.log(err);
-        }
+        // try {
+        //     await this.setModel();
+        // }
+        // catch (err) {
+        //     console.log(err);
+        // }
     }
     // 随机生成 配置数组
     // getOptionValuesFromRandom(originalOptionInputs) {
@@ -193,7 +193,7 @@ class Generator {
      * @param hash 是一个 ArrayBuffer，会转成 Uint8Array, Uint8Array 长度 >= 267(=11+128+128), 每位数在[0, 255]之间
      * @param option_key 配置项
      * @param index 在hash上配置项对应的位置，一个位置产生一个[0,1)的浮点数，作为“随机数”
-     * 
+     *
      * @return 配置项在hash上对应位置产生的[0,1)的浮点数，作为“随机数”
      */
     getRate(hash, option_key, index) {
@@ -261,8 +261,8 @@ class Generator {
         var optionInputs = this.getOptionValuesFromHash(this.getModelConfig(), hash);
         var label = this.getLabel(optionInputs);
         var noise = this.getNoise(optionInputs);
-        
-        var result = await this.gan.run(label, noise); 
+
+        var result = await this.gan.run(label, noise);
 
         console.log("label", label);
         console.log("noise", noise);

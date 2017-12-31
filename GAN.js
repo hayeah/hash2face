@@ -3,10 +3,10 @@ var Utils = require('./Utils')
 // var WebDNN = require('./modules/webdnn/webdnn')
 
 global.navigator = {
-    userAgent: "node 8",
+    userAgent: "nodejs",
 }
 
-global.Worker = require('webworker-threads').Worker
+global.Worker = require('./fakeWorker').Worker
 
 global.window = global
 
@@ -44,7 +44,7 @@ class GAN {
         // // }
 
         // return order[1];
-        return "fallback";
+        return "webassembly";
     }
 
     static getWebglTextureSize() {
@@ -67,7 +67,7 @@ class GAN {
     }
 
     async run(label, noise) {
-        this.init();
+        await this.init();
         this.currentNoise = noise || Array.apply(null, { length: this.modelConfig.gan.noiseLength }).map(() => Utils.randomNormal());
         let input = this.currentNoise.concat(label);
         this.currentInput = input;
